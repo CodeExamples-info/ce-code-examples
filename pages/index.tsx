@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +11,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className="text-4xl text-pink-500">Hello World in the Pink!</h1>
+      {/* <h1 className="text-4xl text-pink-500">Hello World in the Pink!</h1> */}
     </div>
   );
 };
