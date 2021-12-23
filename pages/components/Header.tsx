@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export function Header() {
   return (
-    <header className="flex items-center px-3 h-16 border-y">
+    <header className="flex items-center px-5 h-16 border-y">
       <div className="w-2/12 max-w-[250px]">
         <Link href="/" passHref>
           <a className="inline-flex items-center font-bold text-primary text-lg hover:opacity-70 focus:opacity-70 transition-opacity">

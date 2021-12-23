@@ -11,7 +11,7 @@ export default function Example() {
       </Head>
 
       <div className="w-1/2 max-w-2xl p-5 text-white bg-slate-800 h-full">
-        <div className="hover:scale-110">
+        <div tabIndex={0} className="hover:scale-110 focus:scale-110">
           <SyntaxHighlighter
             language="javascript"
             style={nightOwl}
@@ -27,7 +27,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';`}
           </SyntaxHighlighter>
         </div>
-        <div className="hover:scale-110">
+        <div tabIndex={0} className="hover:scale-110 focus:scale-110">
           <SyntaxHighlighter
             language="javascript"
             style={nightOwl}
@@ -41,7 +41,7 @@ import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/es
             {`export function Example() {}`}
           </SyntaxHighlighter>
         </div>
-        <div className="hover:scale-110">
+        <div tabIndex={0} className="hover:scale-110 focus:scale-110">
           <SyntaxHighlighter
             language="javascript"
             style={nightOwl}
