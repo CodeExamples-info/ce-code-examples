@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function SideNav() {
   return (
-    <div className="border-r w-2/12 max-w[250px] h-full bg-slate-50 py-5 px-5">
+    <div className="border-r w-2/12 min-w-[175px] max-w-[250px] h-full bg-slate-50 py-5 px-5">
       <ul>
         <li>
           {/* TODO: Convert into Separate component? */}
@@ -15,7 +15,7 @@ export function SideNav() {
             </a>
           </Link>
           <Link href="/" passHref>
-            <a className="text-gray-500 h-6 flex items-center font-semibold hover:text-primary focus:text-primary transition-colors mt-3">
+            <a className="text-gray-500 h-6 flex items-center font-semibold hover:text-primary focus:text-primary transition-colors mt-3 hover:first:fill-orange-500">
               <FireIcon className="h-5 mr-3" />
               <span className="mt-0.5 text-sm">Trending</span>
             </a>
@@ -29,28 +29,37 @@ export function SideNav() {
         </li>
       </ul>
       <hr className="border-y-[0.75px] border-slate-300/60 my-6" />
+      {/* NOTE: as this will only show up on the /examples/*, we can simply use the useReducer for this and set this data on the example page */}
       <div className="text-xs">
         <h3 className="text-gray-500 font-semibold uppercase mb-5">Table of Contents</h3>
-        <ul className="list-decimal list-inside">
+        <ul className="list-decimal list-inside text-sm">
           <li className="mb-3">
             {/* TODO: Handle onclick events */}
             <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline focus:font-medium focus:underline">Setup PassportJS</a>
+              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
+                Setup PassportJS
+              </a>
             </Link>
           </li>
           <li className="mb-3">
             <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline focus:font-medium focus:underline">Add Google Plugin</a>
+              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
+                Add Google Plugin
+              </a>
             </Link>
           </li>
           <li className="mb-3">
             <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline focus:font-medium focus:underline">Setup Express Route</a>
+              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
+                Setup Express Route
+              </a>
             </Link>
           </li>
           <li className="mb-3">
             <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline focus:font-medium focus:underline">Login Route</a>
+              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
+                Login Route
+              </a>
             </Link>
           </li>
         </ul>
