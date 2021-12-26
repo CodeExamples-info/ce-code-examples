@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SideNav />
         <Component {...pageProps} />
       </div>
+      {/* TODO: Add slim footer here, or at the bottom of sidenav (SideNav is better) */}
     </div>
   );
 }
