@@ -80,9 +80,9 @@ export default function Example(props: any) {
       .map((_) => createRef());
   }
 
-  function scrollToDescription(index: number) {
-    console.log(elRefs.current);
+  console.log(elRefs.current);
 
+  function scrollToDescription(index: number) {
     // const offset = elRefs.current[index].current?.offsetTop || 0;
     console.log({ index });
     console.log(elRefs.current[index].current);
@@ -105,6 +105,18 @@ export default function Example(props: any) {
     }
   }
 
+  function handleOnClick(e: any, index: number) {
+    scrollToDescription(index);
+    e.target.blur();
+  }
+
+  function handleOnKeyPress(e: any, index: number) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      scrollToDescription(index);
+      containerRef.current?.focus();
+    }
+  }
+
   return (
     <main className="w-full h-full">
       <div className="h-full w-full grid grid-flow-col">
@@ -117,28 +129,32 @@ export default function Example(props: any) {
           {props.steps.map((step: any, index: number) => (
             <div
               tabIndex={0}
-              className="border-transparent border-2 hover:border-slate-700 hover:bg-slate-700 hover:shadow-inner hover:shadow-slate-700 hover:scale-[1.02] rounded mb-2 transition-all cursor-pointer active:cursor-text"
+              className="border-transparent border-2 rounded mb-2 transition-all cursor-pointer hover:border-slate-700 hover:bg-slate-700 hover:shadow-inner hover:shadow-slate-700 hover:scale-[1.02] focus:border-slate-700 focus:bg-slate-700 focus:shadow-inner focus:shadow-slate-700 focus:scale-[1.02] active:cursor-text"
               key={step.id}
+              onClick={(e) => handleOnClick(e, index)}
+              onKeyPress={(e) => handleOnKeyPress(e, index)}
             >
-              <SyntaxHighlighter
-                language="javascript"
-                style={nightOwl}
-                // showLineNumbers={true}
-                // wrapLines={true}
-                wrapLongLines={true}
-                customStyle={{
-                  background: 'transparent',
-                }}
-                onClick={() => scrollToDescription(index)}
-              >
-                {step.code}
-              </SyntaxHighlighter>
+              <div className="pointer-events-none">
+                <SyntaxHighlighter
+                  language="javascript"
+                  style={nightOwl}
+                  // showLineNumbers={true}
+                  // wrapLines={true}
+                  wrapLongLines={true}
+                  customStyle={{
+                    background: 'transparent',
+                  }}
+                >
+                  {step.code}
+                </SyntaxHighlighter>
+              </div>
             </div>
           ))}
         </div>
         <div
           className="w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 h-full overflow-y-auto max-w-none"
           ref={containerRef}
+          tabIndex={0}
         >
           {/* <h1 className="text-4xl font-bold mb-2 leading-snug">{props.title}</h1> */}
           <h1>{props.title}</h1>
