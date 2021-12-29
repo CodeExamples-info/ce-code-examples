@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { createRef, RefObject, useRef } from 'react';
+import Link from 'next/link';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
@@ -69,54 +69,6 @@ import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/es
 
 // TODO: add types for props
 export default function Example(props: any) {
-  // Review the scroll code again to check if we can improve it
-  const elRefs = useRef<RefObject<HTMLDivElement>[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  if (elRefs.current.length !== props.steps.length) {
-    // add or remove refs
-    elRefs.current = Array(props.steps.length)
-      .fill(null)
-      .map((_) => createRef());
-  }
-
-  console.log(elRefs.current);
-
-  function scrollToDescription(index: number) {
-    // const offset = elRefs.current[index].current?.offsetTop || 0;
-    console.log({ index });
-    console.log(elRefs.current[index].current);
-    // containerRef.current?.scrollTo({
-    //   top: offset - 100,
-    //   left: 0,
-    //   behavior: 'smooth',
-    // });
-    if (elRefs.current[index].current) {
-      elRefs.current[index].current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    } else {
-      containerRef.current?.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth',
-      });
-    }
-  }
-
-  function handleOnClick(e: any, index: number) {
-    scrollToDescription(index);
-    e.target.blur();
-  }
-
-  function handleOnKeyPress(e: any, index: number) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      scrollToDescription(index);
-      containerRef.current?.focus();
-    }
-  }
-
   return (
     <main className="w-full h-full">
       <div className="h-full w-full grid grid-flow-col">
@@ -127,14 +79,8 @@ export default function Example(props: any) {
 
         <div className="max-w-2xl p-5 text-white bg-slate-800 h-full overflow-y-auto">
           {props.steps.map((step: any, index: number) => (
-            <div
-              tabIndex={0}
-              className="border-transparent border-2 rounded mb-2 transition-all cursor-pointer hover:border-slate-700 hover:bg-slate-700 hover:shadow-inner hover:shadow-slate-700 hover:scale-[1.02] focus:border-slate-700 focus:bg-slate-700 focus:shadow-inner focus:shadow-slate-700 focus:scale-[1.02] active:cursor-text"
-              key={step.id}
-              onClick={(e) => handleOnClick(e, index)}
-              onKeyPress={(e) => handleOnKeyPress(e, index)}
-            >
-              <div className="pointer-events-none">
+            <Link href={`#block-${step.id}`} key={step.id} passHref>
+              <a className="block border-transparent border-2 rounded mb-2 transition-all cursor-pointer hover:border-slate-700 hover:bg-slate-700 hover:shadow-inner hover:shadow-slate-700 hover:scale-[1.02] focus:border-slate-700 focus:bg-slate-700 focus:shadow-inner focus:shadow-slate-700 focus:scale-[1.02] active:cursor-text">
                 <SyntaxHighlighter
                   language="javascript"
                   style={nightOwl}
@@ -147,26 +93,20 @@ export default function Example(props: any) {
                 >
                   {step.code}
                 </SyntaxHighlighter>
-              </div>
-            </div>
+              </a>
+            </Link>
           ))}
         </div>
         <div
-          className="w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 h-full overflow-y-auto max-w-none"
-          ref={containerRef}
+          className="w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 h-full overflow-y-auto max-w-none scroll-smooth"
           tabIndex={0}
         >
           {/* <h1 className="text-4xl font-bold mb-2 leading-snug">{props.title}</h1> */}
           <h1>{props.title}</h1>
           <div dangerouslySetInnerHTML={{ __html: props.description }}></div>
 
-          {props.steps.map((step: any, index: number) => (
-            <div
-              id={`block-${step.id}`}
-              key={step.id}
-              ref={step.title && step.description ? elRefs.current[index] : null}
-              className="scroll-m-8"
-            >
+          {props.steps.map((step: any) => (
+            <div id={`block-${step.id}`} key={step.id} className="scroll-m-8">
               {step.title ? <h3>{step.title}</h3> : ''}
               {step.description ? <div dangerouslySetInnerHTML={{ __html: step.description }}></div> : ''}
             </div>

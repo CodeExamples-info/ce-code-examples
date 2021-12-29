@@ -1,12 +1,8 @@
 import type { AppProps } from 'next/app';
-import smoothscroll from 'smoothscroll-polyfill';
 import 'tailwindcss/tailwind.css';
 import '../styles/globals.css';
 import Header from './components/Header';
 import SideNav from './components/SideNav';
-
-// kick off the polyfill!
-smoothscroll.polyfill();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
