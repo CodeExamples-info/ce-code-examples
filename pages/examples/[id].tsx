@@ -76,7 +76,7 @@ export default function Example(props: any) {
           <meta name="description" content={props.description} />
         </Head>
 
-        <div className="flex-1 max-w-2xl p-5 text-white bg-slate-800 h-full">
+        <div className="flex-1 max-w-2xl p-5 text-white bg-slate-800 h-full overflow-y-auto">
           {props.steps.map((step: any) => (
             <div tabIndex={0} className="hover:scale-110 focus:scale-110" key={step.id}>
               <SyntaxHighlighter
@@ -94,7 +94,7 @@ export default function Example(props: any) {
             </div>
           ))}
         </div>
-        <div className="flex-1 flex-grow w-auto p-5 prose max-w-none prose-p:text-slate-900 prose-pre:bg-slate-800 overflow-y-scroll h-full">
+        <div className="flex-1 flex-grow w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 overflow-y-auto h-full max-w-none">
           {/* <h1 className="text-4xl font-bold mb-2 leading-snug">{props.title}</h1> */}
           <h1>{props.title}</h1>
           <div dangerouslySetInnerHTML={{ __html: props.description }}></div>
@@ -107,7 +107,12 @@ export default function Example(props: any) {
           ))}
         </div>
         {/* <div>
-          Side action bar (button changes the content in the description place)
+          
+          <p>1</p>
+          <p>1</p>
+          <p>1</p>
+          <p>1</p>
+          <p>1</p>
           <p>
             Buttons
             <p>Author with the avatar</p>
