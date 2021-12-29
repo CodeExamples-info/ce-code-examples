@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Fragment } from 'react';
+import { createRef, RefObject, useRef } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
@@ -60,25 +60,66 @@ import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/es
           code: `export function Example() {}`,
           title: 'Creating a React Component',
           description:
-            '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p>',
+            '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><pre>test description code</pre><p>Some extra paragraph text</p>',
         },
       ],
     },
   };
 }
 
+// TODO: add types for props
 export default function Example(props: any) {
+  // Review the scroll code again to check if we can improve it
+  const elRefs = useRef<RefObject<HTMLDivElement>[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  if (elRefs.current.length !== props.steps.length) {
+    // add or remove refs
+    elRefs.current = Array(props.steps.length)
+      .fill(null)
+      .map((_) => createRef());
+  }
+
+  function scrollToDescription(index: number) {
+    console.log(elRefs.current);
+
+    // const offset = elRefs.current[index].current?.offsetTop || 0;
+    console.log({ index });
+    console.log(elRefs.current[index].current);
+    // containerRef.current?.scrollTo({
+    //   top: offset - 100,
+    //   left: 0,
+    //   behavior: 'smooth',
+    // });
+    if (elRefs.current[index].current) {
+      elRefs.current[index].current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    } else {
+      containerRef.current?.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }
+
   return (
     <main className="w-full h-full">
-      <div className="flex items-start h-full w-full">
+      <div className="h-full w-full grid grid-flow-col">
         <Head>
           <title>{props.title}</title>
           <meta name="description" content={props.description} />
         </Head>
 
-        <div className="flex-1 max-w-2xl p-5 text-white bg-slate-800 h-full overflow-y-auto">
-          {props.steps.map((step: any) => (
-            <div tabIndex={0} className="hover:scale-110 focus:scale-110" key={step.id}>
+        <div className="max-w-2xl p-5 text-white bg-slate-800 h-full overflow-y-auto">
+          {props.steps.map((step: any, index: number) => (
+            <div
+              tabIndex={0}
+              className="border-transparent border-2 hover:border-slate-700 hover:bg-slate-700 hover:shadow-inner hover:shadow-slate-700 hover:scale-[1.02] rounded mb-2 transition-all cursor-pointer active:cursor-text"
+              key={step.id}
+            >
               <SyntaxHighlighter
                 language="javascript"
                 style={nightOwl}
@@ -88,22 +129,31 @@ export default function Example(props: any) {
                 customStyle={{
                   background: 'transparent',
                 }}
+                onClick={() => scrollToDescription(index)}
               >
                 {step.code}
               </SyntaxHighlighter>
             </div>
           ))}
         </div>
-        <div className="flex-1 flex-grow w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 overflow-y-auto h-full max-w-none">
+        <div
+          className="w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 h-full overflow-y-auto max-w-none"
+          ref={containerRef}
+        >
           {/* <h1 className="text-4xl font-bold mb-2 leading-snug">{props.title}</h1> */}
           <h1>{props.title}</h1>
           <div dangerouslySetInnerHTML={{ __html: props.description }}></div>
 
-          {props.steps.map((step: any) => (
-            <Fragment key={step.id}>
-              {step.title ? <h2>{step.title}</h2> : ''}
+          {props.steps.map((step: any, index: number) => (
+            <div
+              id={`block-${step.id}`}
+              key={step.id}
+              ref={step.title && step.description ? elRefs.current[index] : null}
+              className="scroll-m-8"
+            >
+              {step.title ? <h3>{step.title}</h3> : ''}
               {step.description ? <div dangerouslySetInnerHTML={{ __html: step.description }}></div> : ''}
-            </Fragment>
+            </div>
           ))}
         </div>
         {/* <div>

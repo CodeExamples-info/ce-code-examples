@@ -6,9 +6,9 @@ import SideNav from './components/SideNav';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden grid grid-flow-row">
       <Header />
-      <div className="flex items-start h-full">
+      <div className="flex items-stretch h-[calc(100vh_-_4rem)]">
         <SideNav />
         <Component {...pageProps} />
       </div>
