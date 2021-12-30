@@ -1,9 +1,8 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import { useContext, useEffect } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import exampleStepsContext from '../_contexts/exampleSteps.context';
+import { useContext, useEffect, useRef } from 'react';
+import { ExampleCodeList } from '../../modules/examples/components/example-code-list.component';
+import { ExampleDescriptionList } from '../../modules/examples/components/example-description-list.component';
+import exampleStepsContext from '../../modules/examples/hooks/exampleSteps.context.hook';
 
 export function getStaticPaths() {
   return {
@@ -35,6 +34,7 @@ export function getStaticProps() {
           code: `import Head from 'next/head';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';`,
+          title: 'Importing libraries',
         },
         {
           id: '2',
@@ -71,10 +71,13 @@ import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/es
 
 // TODO: add types for props
 export default function Example(props: any) {
+  // Providing steps to root component so that we can display them in sidebar
   const { setSteps } = useContext(exampleStepsContext);
   useEffect(() => {
     setSteps(props.steps);
   }, [props.steps, setSteps]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <main className="w-full h-full">
@@ -82,46 +85,18 @@ export default function Example(props: any) {
         <Head>
           <title>{props.title}</title>
           <meta name="description" content={props.description} />
+          {/* TODO: Set image as well */}
+          {/* TODO: Check if there is a library to achieve this */}
         </Head>
 
-        <div className="max-w-2xl p-5 text-white bg-slate-800 h-full overflow-y-auto">
-          {props.steps.map((step: any, index: number) => (
-            <Link href={`#block-${step.id}`} key={step.id} passHref>
-              <a
-                className="block border-transparent border-2 rounded mb-2 transition-all cursor-pointer hover:border-slate-700 hover:bg-slate-700 hover:shadow-inner hover:shadow-slate-700 hover:scale-[1.02] focus:border-slate-700 focus:bg-slate-700 focus:shadow-inner focus:shadow-slate-700 focus:scale-[1.02] active:cursor-text"
-                title={step.title}
-              >
-                <SyntaxHighlighter
-                  language="javascript"
-                  style={nightOwl}
-                  // showLineNumbers={true}
-                  // wrapLines={true}
-                  wrapLongLines={true}
-                  customStyle={{
-                    background: 'transparent',
-                  }}
-                >
-                  {step.code}
-                </SyntaxHighlighter>
-              </a>
-            </Link>
-          ))}
-        </div>
-        <div
-          className="w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 h-full overflow-y-auto max-w-none scroll-smooth"
-          tabIndex={0}
-        >
-          {/* <h1 className="text-4xl font-bold mb-2 leading-snug">{props.title}</h1> */}
-          <h1>{props.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: props.description }}></div>
+        <ExampleCodeList steps={props.steps} containerRef={containerRef} />
 
-          {props.steps.map((step: any) => (
-            <div id={`block-${step.id}`} key={step.id} className="scroll-m-8">
-              {step.title ? <h3>{step.title}</h3> : ''}
-              {step.description ? <div dangerouslySetInnerHTML={{ __html: step.description }}></div> : ''}
-            </div>
-          ))}
-        </div>
+        <ExampleDescriptionList
+          steps={props.steps}
+          title={props.title}
+          description={props.description}
+          containerRef={containerRef}
+        />
         {/* <div>
           
           <p>1</p>

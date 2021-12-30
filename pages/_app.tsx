@@ -1,10 +1,10 @@
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import 'tailwindcss/tailwind.css';
+import Header from '../components/Header';
+import SideNav from '../components/SideNav';
+import exampleStepsContext from '../modules/examples/hooks/exampleSteps.context.hook';
 import '../styles/globals.css';
-import Header from './components/Header';
-import SideNav from './components/SideNav';
-import exampleStepsContext from './_contexts/exampleSteps.context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [exampleSteps, setExampleSteps] = useState([]);

@@ -1,7 +1,7 @@
 import { HomeIcon, RssIcon } from '@heroicons/react/outline';
 import { FireIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
-import exampleStepsContext from '../_contexts/exampleSteps.context';
+import exampleStepsContext from '../modules/examples/hooks/exampleSteps.context.hook';
 
 export function SideNav() {
   return (
@@ -39,8 +39,8 @@ export function SideNav() {
             {/* TODO: Only show up on `/examples/*` You can simply achieve this by toggling the TableOfContent component here on the base of length of steps and pass steps to the component
       OR: inside the table of component or this component, and use `useContext` to get values */}
             {({ steps }) => {
-              return steps.map((step: any, index) => {
-                return step.title ? (
+              return steps.map((step: any) => {
+                return step.description ? (
                   <li className="mb-3" key={step.id}>
                     {/* TODO: Handle onclick events */}
                     <Link href={`#block-${step.id}`} passHref>
