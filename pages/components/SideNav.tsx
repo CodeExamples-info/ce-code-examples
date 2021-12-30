@@ -1,6 +1,7 @@
 import { HomeIcon, RssIcon } from '@heroicons/react/outline';
 import { FireIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import exampleStepsContext from '../_contexts/exampleSteps.context';
 
 export function SideNav() {
   return (
@@ -30,38 +31,28 @@ export function SideNav() {
       </ul>
       <hr className="border-y-[0.75px] border-slate-300/60 my-6" />
       {/* NOTE: as this will only show up on the /examples/*, we can simply use the useReducer for this and set this data on the example page */}
+      {/* TODO: Move this to separate component */}
       <div className="text-xs">
         <h3 className="text-gray-500 font-semibold uppercase mb-5">Table of Contents</h3>
         <ul className="list-decimal list-inside text-sm">
-          <li className="mb-3">
-            {/* TODO: Handle onclick events */}
-            <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
-                Setup PassportJS
-              </a>
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
-                Add Google Plugin
-              </a>
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
-                Setup Express Route
-              </a>
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link href="/" passHref>
-              <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
-                Login Route
-              </a>
-            </Link>
-          </li>
+          <exampleStepsContext.Consumer>
+            {/* TODO: Only show up on `/examples/*` You can simply achieve this by toggling the TableOfContent component here on the base of length of steps and pass steps to the component
+      OR: inside the table of component or this component, and use `useContext` to get values */}
+            {({ steps }) => {
+              return steps.map((step: any, index) => {
+                return step.title ? (
+                  <li className="mb-3" key={step.id}>
+                    {/* TODO: Handle onclick events */}
+                    <Link href={`#block-${step.id}`} passHref>
+                      <a className="hover:font-medium hover:underline hover:underline-offset-2 focus:font-medium focus:underline">
+                        {step.title}
+                      </a>
+                    </Link>
+                  </li>
+                ) : null;
+              });
+            }}
+          </exampleStepsContext.Consumer>
         </ul>
       </div>
     </div>
