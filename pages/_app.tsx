@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import 'tailwindcss/tailwind.css';
-import Header from '../common/components/Header';
+import Header from '../common/components/Header.component';
 import SideNav from '../common/components/SideNav/SideNav.component';
 import exampleStepsContext from '../modules/examples/hooks/exampleSteps.context.hook';
 import '../styles/globals.css';

@@ -1,9 +1,14 @@
 import { createContext } from 'react';
+import { IExampleStep } from '../interfaces/example-step.interface';
 
-const exampleStepsContext = createContext({
+interface IExampleStepsContext {
+  steps: IExampleStep[];
+  setSteps: (steps: IExampleStep[]) => void;
+}
+
+const exampleStepsContext = createContext<IExampleStepsContext>({
   steps: [],
-  // TODO: Add types here
-  setSteps: (steps: any) => {},
+  setSteps: (steps) => {},
 });
 
 export default exampleStepsContext;

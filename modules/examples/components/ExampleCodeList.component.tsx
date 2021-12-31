@@ -1,9 +1,9 @@
 import { RefObject } from 'react';
-import { ExampleStepInterface } from '../interfaces/example-step.interface';
+import { IExampleStep } from '../interfaces/example-step.interface';
 import { CodeBlock } from './CodeBlock.component';
 
 interface ExampleCodeListProps {
-  steps: ExampleStepInterface[];
+  steps: IExampleStep[];
   containerRef: RefObject<HTMLDivElement>;
 }
 

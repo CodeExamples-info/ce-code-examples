@@ -1,4 +1,4 @@
-export interface ExampleStepInterface {
+export interface IExampleStep {
   id: string;
   code: string;
   title: string;

@@ -1,10 +1,10 @@
 import { KeyboardEvent, MouseEvent, RefObject } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import { ExampleStepInterface } from '../interfaces/example-step.interface';
+import { IExampleStep } from '../interfaces/example-step.interface';
 
 interface CodeBlockProps {
-  step: ExampleStepInterface;
+  step: IExampleStep;
   containerRef: RefObject<HTMLDivElement>;
 }
 

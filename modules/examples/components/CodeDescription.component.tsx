@@ -3,10 +3,10 @@
 //   {step.description ? <div dangerouslySetInnerHTML={{ __html: step.description }}></div> : ''}
 // </div>;
 
-import { ExampleStepInterface } from '../interfaces/example-step.interface';
+import { IExampleStep } from '../interfaces/example-step.interface';
 
 interface CodeDescriptionProps {
-  step: ExampleStepInterface;
+  step: IExampleStep;
 }
 
 export const CodeDescription = (props: CodeDescriptionProps) => {
