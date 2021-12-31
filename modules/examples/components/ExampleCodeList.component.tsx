@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 import { ExampleStepInterface } from '../interfaces/example-step.interface';
-import { CodeBlock } from './code-block.component';
+import { CodeBlock } from './CodeBlock.component';
 
 interface ExampleCodeListProps {
   steps: ExampleStepInterface[];

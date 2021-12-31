@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 import { ExampleStepInterface } from '../interfaces/example-step.interface';
-import { CodeDescription } from './code-description.component';
+import { CodeDescription } from './CodeDescription.component';
 
 interface ExampleDescriptionListProps {
   steps: ExampleStepInterface[];

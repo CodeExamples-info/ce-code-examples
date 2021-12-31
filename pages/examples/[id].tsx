@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useContext, useEffect, useRef } from 'react';
-import { ExampleCodeList } from '../../modules/examples/components/example-code-list.component';
-import { ExampleDescriptionList } from '../../modules/examples/components/example-description-list.component';
+import { ExampleCodeList } from '../../modules/examples/components/ExampleCodeList.component';
+import { ExampleDescriptionList } from '../../modules/examples/components/ExampleDescriptionList.component';
 import exampleStepsContext from '../../modules/examples/hooks/exampleSteps.context.hook';
 
 export function getStaticPaths() {
