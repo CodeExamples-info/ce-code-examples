@@ -1,8 +1,28 @@
 import Head from 'next/head';
-import { useContext, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ReactElement, useContext, useEffect, useRef } from 'react';
 import { ExampleCodeList } from '../../modules/examples/components/ExampleCodeList.component';
 import { ExampleDescriptionList } from '../../modules/examples/components/ExampleDescriptionList.component';
 import exampleStepsContext from '../../modules/examples/hooks/exampleSteps.context.hook';
+import { IExampleStep } from '../../modules/examples/interfaces/example-step.interface';
+import { ExamplePageLayout } from '../../modules/examples/layouts/ExamplePage.layout';
+
+interface ExampleProps {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  createdDate: string;
+  updatedDate: string;
+  author: {
+    name: string;
+    username: string;
+    profileUrl: string;
+    position: string;
+  };
+  steps: IExampleStep[];
+}
 
 export function getStaticPaths() {
   return {
@@ -11,7 +31,7 @@ export function getStaticPaths() {
   };
 }
 
-export function getStaticProps() {
+export function getStaticProps(): { props: ExampleProps } {
   return {
     props: {
       id: 'jibrishID',
@@ -21,10 +41,10 @@ export function getStaticProps() {
         '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut expedita magni eius ex ipsum et fugit temporibus accusamus mollitia fuga maiores illum amet, excepturi architecto numquam eum blanditiis laboriosam laborum?</p>',
       author: {
         name: 'Harsh Patel',
-        slug: 'harsh-patel',
-        profilePage:
-          'https://res.cloudinary.com/codeexamples-info/image/upload/c_fill,g_center,h_52,w_52/v1638986192/brandmark-design_xnaz6c.jpg',
-        positionName: 'Creator of the website',
+        username: 'harsh-patel',
+        profileUrl:
+          'https://res.cloudinary.com/codeexamples-info/image/upload/c_fill,g_center,h_52,w_52,x_0/v1638986192/brandmark-design_xnaz6c.jpg',
+        position: 'Creator of the website',
       },
       createdDate: '2021-12-23T04:00:00Z',
       updatedDate: '2020-05-24T04:00:00Z',
@@ -70,7 +90,7 @@ import { dark as darkCodeHighlightTheme } from 'react-syntax-highlighter/dist/es
 }
 
 // TODO: add types for props
-export default function Example(props: any) {
+function Example(props: ExampleProps) {
   // Providing steps to root component so that we can display them in sidebar
   const { setSteps } = useContext(exampleStepsContext);
   useEffect(() => {
@@ -91,12 +111,32 @@ export default function Example(props: any) {
 
         <ExampleCodeList steps={props.steps} containerRef={containerRef} />
 
+        {/* TODO: Check if we can use the approach of using tabs from Headless UI, we can toggle between different screens, like Description, author, comments, etc... */}
         <ExampleDescriptionList
           steps={props.steps}
           title={props.title}
           description={props.description}
           containerRef={containerRef}
         />
+
+        <div className="w-16 flex flex-col items-center">
+          <div>
+            {/* TODO Use Headless UI to show modal and have a link to visit author's page? */}
+            <Link href={`/authors/${props.author.username}`}>
+              <a>
+                <Image
+                  src={props.author.profileUrl}
+                  height={36}
+                  width={36}
+                  objectFit="cover"
+                  alt={`Image of the Author: ${props.author.name}`}
+                  className="rounded-full"
+                  title={props.author.name}
+                ></Image>
+              </a>
+            </Link>
+          </div>
+        </div>
         {/* <div>
           
           <p>1</p>
@@ -118,3 +158,9 @@ export default function Example(props: any) {
     </main>
   );
 }
+
+Example.getLayout = function getLayout(page: ReactElement) {
+  return <ExamplePageLayout>{page}</ExamplePageLayout>;
+};
+
+export default Example;

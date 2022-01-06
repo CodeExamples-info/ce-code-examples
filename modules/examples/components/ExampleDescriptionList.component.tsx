@@ -13,7 +13,6 @@ export const ExampleDescriptionList = (props: ExampleDescriptionListProps) => {
   return (
     <div
       className="w-auto p-5 prose prose-p:text-slate-900 prose-pre:bg-slate-800 h-full overflow-y-auto max-w-none scroll-smooth"
-      tabIndex={0}
       ref={props.containerRef}
     >
       <h1>{props.title}</h1>
