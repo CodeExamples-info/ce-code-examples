@@ -11,8 +11,8 @@ export const AuthLayout = (props: AuthLayoutProps) => {
   return (
     <div className="h-screen w-screen overflow-hidden flex items-center ">
       <div className="h-full w-1/2">{props.children}</div>
-      <div className="h-full w-1/2 object-cover">
-        <Image src={props.image} alt={props.imageAlt} layout="fill" />
+      <div className="h-full w-1/2 object-cover relative overflow-hidden">
+        <Image src={props.image} alt={props.imageAlt} objectFit="cover" layout="fill" />
       </div>
     </div>
   );
