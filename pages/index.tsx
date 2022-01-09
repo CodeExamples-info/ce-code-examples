@@ -1,7 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
+import EmailInput from '../common/components/inputs/EmailInput/EmailInput.component';
 
 const Home: NextPage = () => {
+  const [email, setEmail] = useState('');
+
   return (
     <div>
       <Head>
@@ -11,6 +15,8 @@ const Home: NextPage = () => {
       </Head>
 
       <h1 className="text-4xl text-pink-500">Hello World in the Pink!</h1>
+
+      <EmailInput showTip emailState={email} handleInputChange={setEmail} />
     </div>
   );
 };

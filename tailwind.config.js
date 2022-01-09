@@ -7,7 +7,7 @@ module.exports = {
   content: ['pages/**/*.{ts,tsx}', 'common/**/*.{ts,tsx}', 'modules/**/*.{ts,tsx}'],
   theme: {
     extend: {
-      fontFamily: { sans: ['"Montserrat"', ...defaultTheme.fontFamily.sans] },
+      fontFamily: { sans: ['"Inter"', ...defaultTheme.fontFamily.sans] },
       colors: {
         accent: {
           base: '#D7A349',
