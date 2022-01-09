@@ -1,5 +1,6 @@
 import { InformationCircleIcon } from '@heroicons/react/solid';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { uniqueId } from '../../../utils/unique-id';
 
 interface EmailInputProps {
   showLabel?: boolean;
@@ -16,6 +17,7 @@ const EmailInput = (props: EmailInputProps) => {
     'border border-gray-300 shadow py-2 px-3 rounded-md placeholder:font-light text-sm focus:border-accent-dark focus:ring-accent-dark focus:ring-1 focus:outline-none peer';
   const validationClassNames =
     'invalid:border-red-300 invalid:ring-red-300 invalid:text-red-900 valid:border-green-300 valid:ring-green-300 valid:text-green-900';
+  const inputId = uniqueId('input');
 
   const handleOnBlur = () => {
     setIsTouched(true);
@@ -29,14 +31,14 @@ const EmailInput = (props: EmailInputProps) => {
     <>
       {/* TODO: Check if we can pass the id for the email as props to avoid the duplicate id issue for multiple inputs on the page */}
       {props.showLabel && (
-        <label htmlFor="email" className="block font-medium mb-1.5">
+        <label htmlFor={inputId} className="block font-medium mb-1.5">
           Email
         </label>
       )}
       <div>
         <input
           type="email"
-          id="email"
+          id={inputId}
           placeholder="your.email@example.com"
           className={`${baseClassNames} ${isTouched ? validationClassNames : ''}`}
           required

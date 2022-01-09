@@ -1,10 +1,16 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useState } from 'react';
 import EmailInput from './EmailInput.component';
+import EmailInputDocMdx from './EmailInput.stories.docs.mdx';
 
 export default {
   title: 'Inputs/Email Input',
   component: EmailInput,
+  parameters: {
+    docs: {
+      page: EmailInputDocMdx,
+    },
+  },
 } as ComponentMeta<typeof EmailInput>;
 
 const Template: ComponentStory<typeof EmailInput> = (args) => {

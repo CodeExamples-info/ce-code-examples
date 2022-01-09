@@ -1,0 +1,52 @@
+import { Story } from '@storybook/addon-docs';
+
+# Email Input
+
+This component will be used to collect an email address from the user on the website. We have refactored the input only for an email address so that we can add proper validation.
+
+**Preview:**
+
+<Story id="inputs-email-input--with-label-and-tip" />
+
+<br />
+
+## Future plans for this component
+
+- Create a custom input component which has the stylings, label and input functionality. Once we have the custom input component, we can use it for all the input components.
+- Add a custom validation for the email address.
+
+## States
+
+This component has the following states:
+
+- Default
+- With Tip
+- With Label
+- With Label And Tip
+- Following states are only available after user has once touched the input field.
+  - Valid
+  - Invalid
+
+#### **Default**
+
+The default state of the component does not show the tip or label.
+
+<Story id="inputs-email-input--default" />
+
+#### **With Tip**
+
+This state shows the tip at the bottom of the input. This can be used to give the user a hint about what the input is for.
+
+<Story id="inputs-email-input--with-tip" />
+
+#### **With Label**
+
+This state shows the Label to the user. This helps the user to understand what the input is for. This also uses the HTML `for` tag to link the label to the input.
+
+<Story id="inputs-email-input--with-label" />
+
+#### **With Label And Tip**
+
+This tate shows the label as well as the tip to the user. It is basically a combination of the `with-label` and `with-tip` states.
+
+<Story id="inputs-email-input--with-label-and-tip" />
